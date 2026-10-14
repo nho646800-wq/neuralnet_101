@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuralNet 101: The Beginner's Brain & Interactive AI Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+    <script>
+        let currentLang = 'en';
+        let currentTab = 'glossary';
+
+        const translations = {
+            en: {
+                appTitle: "NeuralNet 101",
+                appSubtitle: "The Beginner's Brain & Interactive AI Lab",
+                tab1: "1. Glossary",
+                tab2: "2. Geometry",
+                tab3: "3. Activation",
+                tab4: "4. Playground",
+                tab5: "5. Training Lab",
+                tab6: "6. AI Tutor",
+                step1Badge: "Step 1: Core Concepts",
+                glossaryTitle: "Glossary & Real-World Analogies",
+                glossaryDesc: "Understand the fundamental building blocks of neural networks through intuitive real-world mental models.",
+                neuronTitle: "The Neuron",
+                neuronDesc: "Like a biological brain cell, an artificial neuron receives input values (x), multiplies them by weights (w), adds a bias (b), and passes the result through an activation function.",
+                neuronAnalogy: "Analogy: A tiny decision maker in a committee.",
+                weightsTitle: "Weights (w)",
+                weightsDesc: "Weights determine the importance or strength of each incoming signal. Higher weight means the input has more influence on the final output decision.",
+                weightsAnalogy: "Analogy: How much you trust a friend's advice.",
+                biasTitle: "Bias (b)",
+                biasDesc: "Bias is an offset that shifts the activation threshold. It decides how easily a neuron fires regardless of the incoming inputs.",
+                biasAnalogy: "Analogy: A person's natural predisposition or mood.",
+                
+                step2Badge: "Step 2: Geometry & Lines",
+                geometryTitle: "Linear vs. Non-Linear Decision Boundaries",
+                geometryDesc: "Compare how a straight linear line fails on clustered real-world data, and why a non-linear circular boundary fits perfectly.",
+                boundaryModeTitle: "Boundary Mode & Parameters",
+                btnLinear: "Linear Line",
+                btnCircular: "Non-Linear (Circle)",
+                weightSlope: "Weight / Slope (w):",
+                biasIntercept: "Bias / Y-Intercept (b):",
+                radiusLabel: "Decision Radius (r):",
+                circularDesc: "Students who balanced study and rest moderately (inner cluster) passed (🟢). Extremes failed (🔴). Adjust radius r so the pink circle correctly captures the inner students!",
+                snapBtn: "✨ Snap to Optimal Fit",
+                decisionLogicTitle: "Decision Boundary Logic",
+                planeTitle: "Student Performance Plane",
+                legendPassed: "Passed (🟢)",
+                legendFailed: "Failed (🔴)",
+                legendLinear: "Linear Decision Boundary",
+                legendCircular: "Circular Non-Linear Boundary",
+
+                step3Badge: "Step 3: Non-Linear Transformations",
+                squashingTitle: "Squashing & Bending (Activation Functions)",
+                squashingDesc: "Straight lines can't solve everything! Activation functions bend and squash numbers so networks can learn complex patterns.",
+                actSigmoidBadge: "Smooth Squasher",
+                testInputLabel: "Test Input Value (x):",
+                responseCurveTitle: "Activation Response Curve & Axes",
+
+                step4Badge: "Step 4: Playground Lab",
+                playgroundTitle: "Should You Walk Outside Today? (Neural Decision Maker)",
+                playgroundDesc: "Follow the detailed 4-step neural computation pipeline as Temperature and Free Time flow through weights, bias, and activation.",
+                networkTitle: "Outdoor Walk Decision Network",
+                scenarioParams: "Scenario Parameters",
+                tempInputLabel: "Temperature (x₁):",
+                freeTimeInputLabel: "Free Time (x₂):",
+                tempWeightLabel: "Temp Weight (w₁):",
+                freeWeightLabel: "Free Time Weight (w₂):",
+                biasParamLabel: "Bias (b):",
+                pipelineTitle: "Detailed 4-Step Neural Pipeline",
+                step1Math: "1. Weight Signals:",
+                step2Math: "2. Weighted Sum (z):",
+                step3Math: "3. Add Bias (z + b):",
+                step4Math: "4. Sigmoid f(z):",
+
+                step5Badge: "Step 5: Training & Gradient Descent",
+                trainingTitle: "Neural Network Training Simulator",
+                trainingDesc: "Watch how a neural network learns! Hit 'Start Training' to watch gradient descent automatically adjust weights and minimize error over multiple epochs.",
+                trainParamsTitle: "Training Controls",
+                learningRateLabel: "Learning Rate (α):",
+                epochsLabel: "Epochs Completed:",
+                lossLabel: "Current Error (Loss):",
+                startTrainBtn: "▶ Start Training",
+                resetTrainBtn: "🔄 Reset Weights",
+                trainGraphTitle: "Decision Boundary & Loss Curve",
+                conceptTitle: "🧠 Core Concepts Before You Train",
+                conceptDesc1: "<b>Learning Rate (α):</b> Think of this as your <i>step size</i> when walking down a foggy mountain. If your step size is too big, you overshoot the valley and bounce back and forth. If it is too microscopic, it takes forever to reach the bottom. A rate around 0.15 is a healthy, balanced stride.",
+                conceptDesc2: "<b>Convergence:</b> This simply means <i>reaching the destination</i>. When the error (loss) stops decreasing and flattens out, the AI has successfully learned the pattern and 'converged' to the best possible solution.",
+
+                step6Badge: "Step 6: AI Tutor Companion",
+                tutorTitle: "Ask Your AI Neural Guide",
+                tutorDesc: "Have questions about weights, biases, activation functions, or training? Ask away and get instant, beginner-friendly explanations!",
+                tutorGreeting: "Hello! I am your NeuralNet AI Tutor. Select a prompt below or type any question you have about neural networks!",
+                prompt1: "Why do we need activation functions?",
+                prompt2: "What is gradient descent?",
+                prompt3: "How does training work?",
+                tutorPlaceholder: "Ask a question about neural networks...",
+                sendBtn: "Send"
+            },
+            vi: {
+                appTitle: "NeuralNet 101",
+                appSubtitle: "Bộ Não Cho Người Mới Bắt Đầu & Phòng Thí Nghiệm AI",
+                tab1: "1. Thuật Ngữ",
+                tab2: "2. Hình Học",
+                tab3: "3. Kích Hoạt",
+                tab4: "4. Mô Phỏng",
+                tab5: "5. Huấn Luyện",
+                tab6: "6. Trợ Lý AI",
+                step1Badge: "Bước 1: Khái Niệm Cốt Lõi",
+                glossaryTitle: "Thuật Ngữ & So Sánh Thực Tế",
+                glossaryDesc: "Hiểu các khối xây dựng cơ bản của mạng nơ-ron thông qua mô hình tư duy trực quan trong đời thực.",
+                neuronTitle: "Nơ-ron Nhân Tạo",
+                neuronDesc: "Giống như tế bào não sinh học, nơ-ron nhận đầu vào (x), nhân với trọng số (w), cộng độ lệch (b) và qua hàm kích hoạt.",
+                neuronAnalogy: "Ví dụ: Một thành viên nhỏ trong hội đồng ra quyết định.",
+                weightsTitle: "Trọng Số (w)",
+                weightsDesc: "Trọng số quyết định mức độ quan trọng của tín hiệu đến. Trọng số lớn hơn nghĩa là đầu vào ảnh hưởng nhiều hơn tới quyết định.",
+                weightsAnalogy: "Ví dụ: Mức độ bạn tin tưởng lời khuyên của bạn thân.",
+                biasTitle: "Độ Lệch (b)",
+                biasDesc: "Độ lệch là giá trị dịch chuyển ngưỡng kích hoạt, quyết định nơ-ron dễ hay khó kích hoạt bất kể tín hiệu đầu vào.",
+                biasAnalogy: "Ví dụ: Tâm trạng hoặc xu hướng tự nhiên của một người.",
+                
+                step2Badge: "Bước 2: Hình Học & Đường Thẳng",
+                geometryTitle: "Ranh Giới Tuyến Tính và Phi Tuyến",
+                geometryDesc: "So sánh cách một đường thẳng thất bại trên dữ liệu thực tế phân cụm, và tại sao ranh giới vòng tròn phi tuyến phù hợp hoàn hảo.",
+                boundaryModeTitle: "Chế Độ Ranh Giới & Tham Số",
+                btnLinear: "Đường Thẳng",
+                btnCircular: "Phi Tuyến (Vòng Tròn)",
+                weightSlope: "Trọng số / Hệ số góc (w):",
+                biasIntercept: "Độ lệch / Tung độ gốc (b):",
+                radiusLabel: "Bán Kính Ranh Giới (r):",
+                circularDesc: "Học sinh cân bằng vừa phải giữa học và nghỉ (cụm trong) đã đậu (🟢). Các cực đoan rớt (🔴). Điều chỉnh bán kính r để vòng tròn hồng ôm trọn học sinh đạt!",
+                snapBtn: "✨ Tự Động Khớp Tối Ưu",
+                decisionLogicTitle: "Logic Ranh Giới Quyết Định",
+                planeTitle: "Mặt Phẳng Hiệu Suất Học Sinh",
+                legendPassed: "Đậu (🟢)",
+                legendFailed: "Rớt (🔴)",
+                legendLinear: "Ranh Giới Tuyến Tính",
+                legendCircular: "Ranh Giới Vòng Tròn Phi Tuyến",
+
+                step3Badge: "Bước 3: Biến Đổi Phi Tuyến",
+                squashingTitle: "Nén & Uốn Cong (Hàm Kích Hoạt)",
+                squashingDesc: "Đường thẳng không thể giải quyết mọi thứ! Hàm kích hoạt uốn cong các con số giúp mạng học được các mẫu phức tạp.",
+                actSigmoidBadge: "Bộ Nén Mượt Mà",
+                testInputLabel: "Giá Trị Đầu Vào Kiểm Tra (x):",
+                responseCurveTitle: "Đường Biểu Diễn & Trục Tọa Độ",
+
+                step4Badge: "Bước 4: Phòng Thí Nghiệm",
+                playgroundTitle: "Hôm Nay Có Nên Đi Dạo Không? (Mô Hình Ra Quyết Định)",
+                playgroundDesc: "Theo dõi 4 bước tính toán nơ-ron khi Nhiệt độ và Thời gian rảnh đi qua trọng số, độ lệch và hàm kích hoạt để đưa ra quyết định cuối cùng.",
+                networkTitle: "Mạng Quyết Định Đi Dạo Ngoài Trời",
+                scenarioParams: "Tham Số Kịch Bản",
+                tempInputLabel: "Nhiệt độ (x₁):",
+                freeTimeInputLabel: "Thời gian rảnh (x₂):",
+                tempWeightLabel: "Trọng số nhiệt độ (w₁):",
+                freeWeightLabel: "Trọng số thời gian (w₂):",
+                biasParamLabel: "Độ lệch (b):",
+                pipelineTitle: "Quy Trình 4 Bước Tính Toán",
+                step1Math: "1. Tín hiệu trọng số:",
+                step2Math: "2. Tổng có trọng số (z):",
+                step3Math: "3. Cộng độ lệch (z + b):",
+                step4Math: "4. Sigmoid f(z):",
+
+                step5Badge: "Bước 5: Huấn Luyện & Giảm Dốc",
+                trainingTitle: "Mô Phỏng Huấn Luyện Mạng Nơ-ron",
+                trainingDesc: "Xem cách mạng nơ-ron tự học! Nhấn 'Bắt đầu huấn luyện' để thấy thuật toán tự động điều chỉnh trọng số và giảm thiểu lỗi qua các vòng lặp (epochs).",
+                trainParamsTitle: "Điều Khiển Huấn Luyện",
+                learningRateLabel: "Tốc độ học (α):",
+                epochsLabel: "Số vòng lặp:",
+                lossLabel: "Mức lỗi hiện tại (Loss):",
+                startTrainBtn: "▶ Bắt Đầu Huấn Luyện",
+                resetTrainBtn: "🔄 Đặt Lại Trọng Số",
+                trainGraphTitle: "Đường Biên Quyết Định & Biểu Đồ Lỗi",
+                conceptTitle: "🧠 Kiến Thức Cốt Lõi Trước Khi Huấn Luyện",
+                conceptDesc1: "<b>Tốc độ học (Learning Rate - α):</b> Hãy hình dung đây là <i>độ dài bước chân</i> của bạn khi đi xuống một ngọn núi mù sương. Nếu bước quá dài, bạn sẽ bước hụt qua thung lũng. Nếu bước quá nhỏ, bạn mất rất nhiều thời gian mới xuống được đáy. Mức khoảng 0.15 là bước đi cân đối, an toàn.",
+                conceptDesc2: "<b>Sự hội tụ (Convergence):</b> Có nghĩa là <i>đã đến đích</i>. Khi mức lỗi (loss) ngừng giảm và đi ngang, mô hình AI đã học được quy luật và hội tụ về kết quả tối ưu nhất.",
+
+                step6Badge: "Bước 6: Trợ Lý AI Đồng Hành",
+                tutorTitle: "Hỏi Trợ Lý AI Về Nơ-ron",
+                tutorDesc: "Bạn có thắc mắc về trọng số, độ lệch, hàm kích hoạt hay quá trình huấn luyện? Hãy hỏi ngay để nhận giải thích chi tiết!",
+                tutorGreeting: "Xin chào! Tôi là Trợ lý AI NeuralNet. Hãy chọn gợi ý bên dưới hoặc gõ câu hỏi bất kỳ về mạng nơ-ron!",
+                prompt1: "Tại sao cần hàm kích hoạt?",
+                prompt2: "Thuật toán giảm dốc là gì?",
+                prompt3: "Mạng nơ-ron học như thế nào?",
+                tutorPlaceholder: "Đặt câu hỏi về mạng nơ-ron...",
+                sendBtn: "Gửi"
+            }
+        };
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.add('hidden'));
+            const activeSec = document.getElementById(`view-${tabId}`);
+            if (activeSec) activeSec.classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow');
+                btn.classList.add('text-slate-300', 'hover:text-white');
+            });
+
+            document.querySelectorAll('nav.md\\:hidden button').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'font-semibold');
+                btn.classList.add('text-slate-300', 'font-medium');
+            });
+
+            const activeDesktopBtn = document.getElementById(`tab-${tabId}`);
+            if (activeDesktopBtn) {
+                activeDesktopBtn.classList.remove('text-slate-300', 'hover:text-white');
+                activeDesktopBtn.classList.add('bg-indigo-600', 'text-white', 'shadow');
+            }
+
+            const activeMobileBtn = document.getElementById(`tab-${tabId}-m`);
+            if (activeMobileBtn) {
+                activeMobileBtn.classList.remove('text-slate-300', 'font-medium');
+                activeMobileBtn.classList.add('bg-indigo-600', 'text-white', 'font-semibold');
+            }
+
+            setTimeout(() => {
+                if (tabId === 'geometry') drawGeometryGraph();
+                else if (tabId === 'squashing') drawActivationGraph();
+                else if (tabId === 'training') drawTrainingGraph();
+            }, 50);
+        }
+
+        function toggleLanguage(lang) {
+            currentLang = lang;
+            const enBtn = document.getElementById('lang-en');
+            const viBtn = document.getElementById('lang-vi');
+            if (lang === 'en') {
+                enBtn.className = "px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white transition-all";
+                viBtn.className = "px-2.5 py-1 rounded-md font-semibold text-slate-400 hover:text-white transition-all";
+            } else {
+                viBtn.className = "px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white transition-all";
+                enBtn.className = "px-2.5 py-1 rounded-md font-semibold text-slate-400 hover:text-white transition-all";
+            }
+            updateDOMTranslations();
+        }
+
+        function updateDOMTranslations() {
+            const t = translations[currentLang];
+            const setText = (id, text) => { const el = document.getElementById(id); if (el) el.innerText = text; };
+
+            setText('app-title', t.appTitle);
+            setText('app-subtitle', t.appSubtitle);
+            setText('tab-glossary', t.tab1);
+            setText('tab-geometry', t.tab2);
+            setText('tab-squashing', t.tab3);
+            setText('tab-playground', t.tab4);
+            setText('tab-training', t.tab5);
+            setText('tab-tutor', t.tab6);
+
+            setText('step1-badge', t.step1Badge);
+            setText('glossary-title', t.glossaryTitle);
+            setText('glossary-desc', t.glossaryDesc);
+            setText('neuron-title', t.neuronTitle);
+            setText('neuron-desc', t.neuronDesc);
+            setText('neuron-analogy', t.neuronAnalogy);
+            setText('weights-title', t.weightsTitle);
+            setText('weights-desc', t.weightsDesc);
+            setText('weights-analogy', t.weightsAnalogy);
+            setText('bias-title', t.biasTitle);
+            setText('bias-desc', t.biasDesc);
+            setText('bias-analogy', t.biasAnalogy);
+
+            setText('step2-badge', t.step2Badge);
+            setText('geometry-title', t.geometryTitle);
+            setText('geometry-desc', t.geometryDesc);
+            setText('boundary-mode-title', t.boundaryModeTitle);
+            setText('btn-mode-linear', t.btnLinear);
+            setText('btn-mode-circular', t.btnCircular);
+            setText('label-weight-slope', t.weightSlope);
+            setText('label-bias-intercept', t.biasIntercept);
+            setText('label-radius', t.radiusLabel);
+            setText('circular-desc', t.circularDesc);
+            setText('snap-btn-text', t.snapBtn);
+            setText('decision-logic-title', t.decisionLogicTitle);
+            setText('plane-title', t.planeTitle);
+            setText('legend-passed-text', t.legendPassed);
+            setText('legend-failed-text', t.legendFailed);
+
+            setText('step3-badge', t.step3Badge);
+            setText('squashing-title', t.squashingTitle);
+            setText('squashing-desc', t.squashingDesc);
+            setText('act-badge', t.actSigmoidBadge);
+            setText('test-input-label', t.testInputLabel);
+            setText('response-curve-title', t.responseCurveTitle);
+
+            setText('step4-badge', t.step4Badge);
+            setText('playground-title', t.playgroundTitle);
+            setText('playground-desc', t.playgroundDesc);
+            setText('network-title', t.networkTitle);
+            setText('scenario-params-title', t.scenarioParams);
+            setText('temp-input-label', t.tempInputLabel);
+            setText('freetime-input-label', t.freeTimeInputLabel);
+            setText('temp-weight-label', t.tempWeightLabel);
+            setText('freetime-weight-label', t.freeWeightLabel);
+            setText('bias-param-label', t.biasParamLabel);
+            setText('pipeline-title', t.pipelineTitle);
+            setText('step1-math-label', t.step1Math);
+            setText('step2-math-label', t.step2Math);
+            setText('step3-math-label', t.step3Math);
+            setText('step4-math-label', t.step4Math);
+
+            setText('step5-badge-train', t.step5Badge);
+            setText('training-title', t.trainingTitle);
+            setText('training-desc', t.trainingDesc);
+            setText('train-params-title', t.trainParamsTitle);
+            setText('learning-rate-label', t.learningRateLabel);
+            setText('epochs-label-text', t.epochsLabel);
+            setText('loss-label-text', t.lossLabel);
+            setText('reset-train-btn', t.resetTrainBtn);
+            setText('train-graph-title', t.trainGraphTitle);
+            setText('concept-box-title', t.conceptTitle);
+            document.getElementById('concept-desc-1').innerHTML = t.conceptDesc1;
+            document.getElementById('concept-desc-2').innerHTML = t.conceptDesc2;
+
+            setText('step6-badge', t.step6Badge);
+            setText('tutor-title', t.tutorTitle);
+            setText('tutor-desc', t.tutorDesc);
+            setText('prompt1-btn', t.prompt1);
+            setText('prompt2-btn', t.prompt2);
+            setText('prompt3-btn', t.prompt3);
+            const tutorInput = document.getElementById('tutor-input');
+            if (tutorInput) tutorInput.placeholder = t.tutorPlaceholder;
+            setText('tutor-send-btn', t.sendBtn);
+        }
+
+        function closeWelcomeModal() {
+            const modal = document.getElementById('welcome-modal');
+            if (modal) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => modal.remove(), 300);
+            }
+        }
+    </script>
+</head>
+<body class="h-full bg-slate-900 text-slate-100 flex flex-col min-h-screen">
+
+    <!-- Welcome Modal -->
+    <div id="welcome-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-violet-500/40 rounded-2xl max-w-lg w-full p-6 md:p-8 shadow-2xl space-y-6 relative">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 bg-violet-600 rounded-2xl shadow-xl shadow-violet-600/40 flex items-center justify-center text-3xl border border-violet-400">🧠</div>
+            <div class="text-center pt-6 space-y-2">
+                <h2 class="text-2xl font-bold text-white tracking-tight">Welcome to NeuralNet 101!</h2>
+                <p class="text-xs text-violet-300 font-medium">Your interactive sandbox for mastering AI & Deep Learning fundamentals</p>
+            </div>
+            <button onclick="closeWelcomeModal()" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold py-3 rounded-xl text-xs transition-all shadow-lg shadow-violet-600/30 flex items-center justify-center space-x-2">
+                <span>🚀 Got It, Let's Explore!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-30">
+        <div class="flex flex-wrap items-center justify-between px-6 py-4 gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-indigo-600 rounded-lg shadow-lg shadow-indigo-600/30"><span class="text-xl">🧠</span></div>
+                <div>
+                    <h1 id="app-title" class="text-xl font-bold tracking-tight text-white">NeuralNet 101</h1>
+                    <p id="app-subtitle" class="text-xs text-slate-400">The Beginner's Brain & Interactive AI Lab</p>
+                </div>
+            </div>
+
+            <div class="hidden md:flex space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700/60 shadow-inner">
+                <button onclick="switchTab('glossary')" id="tab-glossary" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-white bg-indigo-600 shadow">1. Glossary</button>
+                <button onclick="switchTab('geometry')" id="tab-geometry" class="tab-btn px-3 py-1.5 text-xs font-medium rounded-lg transition-all text-slate-300 hover:text-white">2. Geometry</button>
+                <button onclick="switchTab('squashing')" id="tab-squashing" class="tab-btn px-3 py-1.5 text-xs font-medium rounded-lg transition-all text-slate-300 hover:text-white">3. Activation</button>
+                <button onclick="switchTab('playground')" id="tab-playground" class="tab-btn px-3 py-1.5 text-xs font-medium rounded-lg transition-all text-slate-300 hover:text-white">4. Playground</button>
+                <button onclick="switchTab('training')" id="tab-training" class="tab-btn px-3 py-1.5 text-xs font-medium rounded-lg transition-all text-slate-300 hover:text-white">5. Training Lab</button>
+                <button onclick="switchTab('tutor')" id="tab-tutor" class="tab-btn px-3 py-1.5 text-xs font-medium rounded-lg transition-all text-slate-300 hover:text-white">6. AI Tutor</button>
+            </div>
+
+            <div class="flex items-center space-x-1 bg-slate-800 p-1 rounded-lg border border-slate-700 text-xs shadow">
+                <button id="lang-en" onclick="toggleLanguage('en')" class="px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white transition-all">EN</button>
+                <button id="lang-vi" onclick="toggleLanguage('vi')" class="px-2.5 py-1 rounded-md font-semibold text-slate-400 hover:text-white transition-all">VI</button>
+            </div>
+        </div>
+
+        <nav class="md:hidden flex items-center space-x-1 bg-slate-900 px-4 pb-3 overflow-x-auto border-t border-slate-800/60 pt-2">
+            <button onclick="switchTab('glossary')" id="tab-glossary-m" class="px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-indigo-600 text-white shadow">1. Glossary</button>
+            <button onclick="switchTab('geometry')" id="tab-geometry-m" class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap text-slate-300">2. Geometry</button>
+            <button onclick="switchTab('squashing')" id="tab-squashing-m" class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap text-slate-300">3. Activation</button>
+            <button onclick="switchTab('playground')" id="tab-playground-m" class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap text-slate-300">4. Playground</button>
+            <button onclick="switchTab('training')" id="tab-training-m" class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap text-slate-300">5. Training</button>
+            <button onclick="switchTab('tutor')" id="tab-tutor-m" class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap text-slate-300">6. AI Tutor</button>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 bg-slate-900">
+
+        <!-- TAB 1: GLOSSARY -->
+        <div id="view-glossary" class="view-section max-w-6xl mx-auto space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur">
+                <span id="step1-badge" class="text-xs font-semibold uppercase tracking-wider text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">Step 1: Core Concepts</span>
+                <h2 id="glossary-title" class="text-2xl font-bold text-white mt-3">Glossary & Real-World Analogies</h2>
+                <p id="glossary-desc" class="text-slate-300 mt-1 text-sm">Understand the fundamental building blocks of neural networks through intuitive real-world mental models.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 hover:border-violet-500/50 transition-all flex flex-col shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center text-violet-400 font-bold mb-4 text-xl">🧠</div>
+                    <h3 id="neuron-title" class="font-bold text-white text-base">The Neuron</h3>
+                    <p id="neuron-desc" class="text-slate-300 text-xs mt-2 flex-1 leading-relaxed">Like a biological brain cell, an artificial neuron receives input values (x), multiplies them by weights (w), adds a bias (b), and passes the result through an activation function.</p>
+                    <div id="neuron-analogy" class="mt-4 pt-3 border-t border-slate-700/60 text-xs text-violet-300 font-medium">Analogy: A tiny decision maker in a committee.</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 hover:border-violet-500/50 transition-all flex flex-col shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold mb-4 text-xl">⚖️</div>
+                    <h3 id="weights-title" class="font-bold text-white text-base">Weights (w)</h3>
+                    <p id="weights-desc" class="text-slate-300 text-xs mt-2 flex-1 leading-relaxed">Weights determine the importance or strength of each incoming signal. Higher weight means the input has more influence on the final output decision.</p>
+                    <div id="weights-analogy" class="mt-4 pt-3 border-t border-slate-700/60 text-xs text-indigo-300 font-medium">Analogy: How much you trust a friend's advice.</div>
+                </div>
+                <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 hover:border-violet-500/50 transition-all flex flex-col shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold mb-4 text-xl">🎯</div>
+                    <h3 id="bias-title" class="font-bold text-white text-base">Bias (b)</h3>
+                    <p id="bias-desc" class="text-slate-300 text-xs mt-2 flex-1 leading-relaxed">Bias is an offset that shifts the activation threshold. It decides how easily a neuron fires regardless of the incoming inputs.</p>
+                    <div id="bias-analogy" class="mt-4 pt-3 border-t border-slate-700/60 text-xs text-purple-300 font-medium">Analogy: A person's natural predisposition or mood.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: GEOMETRY -->
+        <div id="view-geometry" class="view-section hidden max-w-6xl mx-auto space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur">
+                <span id="step2-badge" class="text-xs font-semibold uppercase tracking-wider text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">Step 2: Geometry & Lines</span>
+                <h2 id="geometry-title" class="text-2xl font-bold text-white mt-3">Linear vs. Non-Linear Decision Boundaries</h2>
+                <p id="geometry-desc" class="text-slate-300 mt-1 text-sm">Compare how a straight linear line fails on clustered real-world data, and why a non-linear circular boundary fits perfectly.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 bg-slate-800 border border-slate-700/80 rounded-2xl p-6 space-y-6 shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <h3 id="boundary-mode-title" class="text-lg font-bold text-white">Boundary Mode & Parameters</h3>
+                        <div id="geo-accuracy-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">Accuracy: 50%</div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-700">
+                        <button onclick="setBoundaryMode('linear')" id="btn-mode-linear" class="py-2 rounded-lg text-xs font-semibold transition-all bg-violet-600 text-white shadow">Linear Line</button>
+                        <button onclick="setBoundaryMode('circular')" id="btn-mode-circular" class="py-2 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white">Non-Linear (Circle)</button>
+                    </div>
+
+                    <div id="controls-linear" class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-300 mb-2">
+                                <span id="label-weight-slope">Weight / Slope (w):</span>
+                                <span id="geo-w-val" class="text-violet-400 font-bold">1.0</span>
+                            </div>
+                            <input type="range" id="geo-w-slider" min="-5" max="5" step="0.1" value="1.0" class="w-full accent-violet-500 bg-slate-700 h-2 rounded-lg cursor-pointer" oninput="updateGeometry()">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-300 mb-2">
+                                <span id="label-bias-intercept">Bias / Y-Intercept (b):</span>
+                                <span id="geo-b-val" class="text-violet-400 font-bold">0.0</span>
+                            </div>
+                            <input type="range" id="geo-b-slider" min="-5" max="5" step="0.1" value="0.0" class="w-full accent-violet-500 bg-slate-700 h-2 rounded-lg cursor-pointer" oninput="updateGeometry()">
+                        </div>
+                    </div>
+
+                    <div id="controls-circular" class="space-y-4 hidden">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-300 mb-2">
+                                <span id="label-radius">Decision Radius (r):</span>
+                                <span id="geo-r-val" class="text-pink-400 font-bold">1.5</span>
+                            </div>
+                            <input type="range" id="geo-r-slider" min="0.5" max="4.0" step="0.1" value="1.5" class="w-full accent-pink-500 bg-slate-700 h-2 rounded-lg cursor-pointer" oninput="updateGeometry()">
+                        </div>
+                        <p id="circular-desc" class="text-xs text-slate-400 leading-relaxed">Students who balanced study and rest moderately passed (🟢). Extremes failed (🔴). Adjust radius r so the pink circle correctly captures the inner students!</p>
+                    </div>
+
+                    <button onclick="snapOptimalBoundary()" class="w-full bg-slate-900 hover:bg-slate-700 border border-slate-700 text-xs font-semibold py-2.5 rounded-xl text-violet-300 transition-all flex items-center justify-center space-x-1.5 shadow">
+                        <span id="snap-btn-text">✨ Snap to Optimal Fit</span>
+                    </button>
+
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-700/60 space-y-2">
+                        <div id="decision-logic-title" class="text-xs text-slate-400 uppercase font-semibold tracking-wide">Decision Boundary Logic</div>
+                        <div id="geo-equation-display" class="text-base font-mono font-bold text-violet-400">y = 1.0x + 0.0</div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-slate-800 border border-slate-700/80 rounded-2xl p-6 flex flex-col shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 id="plane-title" class="text-sm font-bold text-slate-200 uppercase tracking-wider">Student Performance Plane</h3>
+                        <span id="geo-graph-mode-badge" class="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-700">Linear Boundary Mode</span>
+                    </div>
+
+                    <div class="relative flex-1 min-h-[340px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden flex items-center justify-center">
+                        <canvas id="geometryCanvas" class="absolute inset-0 w-full h-full cursor-crosshair block"></canvas>
+                        <div id="geo-tooltip" class="absolute hidden pointer-events-none bg-slate-900/95 border border-violet-500/50 text-slate-100 text-xs px-3.5 py-2.5 rounded-xl shadow-2xl backdrop-blur z-20 space-y-1">
+                            <div class="font-bold text-violet-300 border-b border-slate-700 pb-1 mb-1 flex items-center justify-between">
+                                <span>Student Data Inspection</span>
+                                <span id="geo-tooltip-status-badge" class="text-[10px] px-2 py-0.5 rounded-full">Passed</span>
+                            </div>
+                            <div id="geo-tooltip-content" class="space-y-0.5 font-mono text-[11px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- Integrated Connected Legend Inside Graph Card -->
+                    <div class="bg-slate-900/90 border border-slate-700/60 rounded-xl px-4 py-3 mt-4 flex flex-wrap items-center justify-between text-xs text-slate-300 shadow-inner gap-2">
+                        <div class="flex items-center space-x-4">
+                            <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block shadow"></span><span id="legend-passed-text">Passed (🟢)</span></span>
+                            <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-rose-500 inline-block shadow"></span><span id="legend-failed-text">Failed (🔴)</span></span>
+                        </div>
+                        <div class="flex items-center space-x-2 border-l border-slate-700 pl-4">
+                            <span id="geo-legend-indicator" class="w-4 h-1.5 bg-violet-500 inline-block rounded"></span>
+                            <span id="geo-legend-text" class="font-medium text-white">Linear Decision Boundary</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: ACTIVATION -->
+        <div id="view-squashing" class="view-section hidden max-w-6xl mx-auto space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur">
+                <span id="step3-badge" class="text-xs font-semibold uppercase tracking-wider text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">Step 3: Non-Linear Transformations</span>
+                <h2 id="squashing-title" class="text-2xl font-bold text-white mt-3">Squashing & Bending (Activation Functions)</h2>
+                <p id="squashing-desc" class="text-slate-300 mt-1 text-sm">Straight lines can't solve everything! Activation functions bend and squash numbers so networks can learn complex patterns.</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <button onclick="setActivation('sigmoid')" id="btn-act-sigmoid" class="act-tab-btn px-4 py-3 rounded-xl text-xs font-semibold transition-all bg-violet-600 text-white shadow-md border border-violet-500 flex flex-col items-center justify-center space-y-1">
+                    <span class="text-sm font-bold">Sigmoid</span>
+                    <span class="text-[10px] text-violet-200">Range (0 to 1)</span>
+                </button>
+                <button onclick="setActivation('relu')" id="btn-act-relu" class="act-tab-btn px-4 py-3 rounded-xl text-xs font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 flex flex-col items-center justify-center space-y-1">
+                    <span class="text-sm font-bold">ReLU</span>
+                    <span class="text-[10px] text-slate-400">Max(0, x)</span>
+                </button>
+                <button onclick="setActivation('tanh')" id="btn-act-tanh" class="act-tab-btn px-4 py-3 rounded-xl text-xs font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 flex flex-col items-center justify-center space-y-1">
+                    <span class="text-sm font-bold">Tanh</span>
+                    <span class="text-[10px] text-slate-400">Range (-1 to +1)</span>
+                </button>
+                <button onclick="setActivation('leaky')" id="btn-act-leaky" class="act-tab-btn px-4 py-3 rounded-xl text-xs font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 flex flex-col items-center justify-center space-y-1">
+                    <span class="text-sm font-bold">Leaky ReLU</span>
+                    <span class="text-[10px] text-slate-400">Small negative slope</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 bg-slate-800 border border-slate-700/80 rounded-2xl p-6 space-y-6 flex flex-col justify-between shadow-lg">
+                    <div class="space-y-4">
+                        <div class="inline-block px-3 py-1 rounded-full bg-violet-500/10 text-violet-300 text-xs font-semibold border border-violet-500/20" id="act-badge">Smooth Squasher</div>
+                        <h3 id="act-title" class="text-xl font-bold text-white">Sigmoid Function</h3>
+                        <p id="act-desc" class="text-slate-300 text-xs leading-relaxed">Squashes any input real number into a smooth range between 0 and 1. Perfect for probability outputs!</p>
+                    </div>
+
+                    <div class="space-y-4 bg-slate-900 p-4 rounded-xl border border-slate-700/60 shadow-inner">
+                        <div class="flex items-center justify-between text-xs font-medium text-slate-300">
+                            <span id="test-input-label">Test Input Value (x):</span>
+                            <span id="act-input-display" class="text-violet-400 font-bold">1.0</span>
+                        </div>
+                        <input type="range" id="act-slider" min="-5" max="5" step="0.1" value="1.0" class="w-full accent-violet-500 bg-slate-700 h-2 rounded-lg cursor-pointer" oninput="updateActivationTest()">
+                        
+                        <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
+                            <span class="text-slate-400 font-mono" id="act-formula-text">Formula: 1 / (1 + e⁻ˣ)</span>
+                            <div class="bg-violet-950/80 px-3 py-1.5 rounded-lg border border-violet-700/50 text-violet-200 font-bold">
+                                Output f(x): <span id="act-output-display" class="text-violet-400">0.73</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-slate-800 border border-slate-700/80 rounded-2xl p-6 flex flex-col shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 id="response-curve-title" class="text-sm font-bold text-slate-200 uppercase tracking-wider">Activation Response Curve & Axes</h3>
+                        <span class="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-700">Grid: X (-5 to +5), Y (-2 to +2)</span>
+                    </div>
+                    <div class="relative flex-1 min-h-[360px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden flex items-center justify-center">
+                        <canvas id="activationCanvas" class="w-full h-full cursor-crosshair block"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: PLAYGROUND -->
+        <div id="view-playground" class="view-section hidden max-w-6xl mx-auto space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur">
+                <span id="step4-badge" class="text-xs font-semibold uppercase tracking-wider text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">Step 4: Playground Lab</span>
+                <h2 id="playground-title" class="text-2xl font-bold text-white mt-3">Should You Walk Outside Today? (Neural Decision Maker)</h2>
+                <p id="playground-desc" class="text-slate-300 mt-1 text-sm">Follow the detailed 4-step neural computation pipeline as Temperature and Free Time flow through weights, bias, and activation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-7 bg-slate-800 border border-slate-700/80 rounded-2xl p-6 relative overflow-hidden shadow-xl flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span id="network-title" class="text-xs font-bold text-slate-400 uppercase tracking-wider">Outdoor Walk Decision Network</span>
+                        <span class="text-xs text-violet-400 bg-violet-500/10 px-2.5 py-1 rounded-full font-medium border border-violet-500/20">Sigmoid Neuron</span>
+                    </div>
+
+                    <div class="h-64 w-full flex items-center justify-center my-4 relative">
+                        <svg id="neuronNetworkSvg" class="w-full h-full" viewBox="0 0 700 240">
+                            <line x1="110" y1="70" x2="350" y2="120" stroke="#8b5cf6" stroke-width="4" stroke-opacity="0.8" />
+                            <line x1="110" y1="170" x2="350" y2="120" stroke="#8b5cf6" stroke-width="4" stroke-opacity="0.8" />
+                            <g transform="translate(110, 70)">
+                                <circle r="34" fill="#1e293b" stroke="#8b5cf6" stroke-width="3" />
+                                <text text-anchor="middle" dy="-8" fill="#ffffff" font-size="10" font-weight="bold">Temperature</text>
+                                <text id="svg-in1-val" text-anchor="middle" dy="12" fill="#a78bfa" font-size="11" font-family="monospace">22°C</text>
+                            </g>
+                            <g transform="translate(110, 170)">
+                                <circle r="34" fill="#1e293b" stroke="#8b5cf6" stroke-width="3" />
+                                <text text-anchor="middle" dy="-8" fill="#ffffff" font-size="10" font-weight="bold">Free Time</text>
+                                <text id="svg-in2-val" text-anchor="middle" dy="12" fill="#a78bfa" font-size="11" font-family="monospace">3.0 hrs</text>
+                            </g>
+                            <g transform="translate(350, 120)">
+                                <circle r="46" fill="#3b0764" stroke="#a78bfa" stroke-width="4" class="animate-pulse" />
+                                <text text-anchor="middle" dy="-10" fill="#ffffff" font-size="12" font-weight="bold">Decision Z</text>
+                                <text id="svg-sum-val" text-anchor="middle" dy="8" fill="#e2e8f0" font-size="11" font-family="monospace">z = 0.00</text>
+                                <text id="svg-bias-val" text-anchor="middle" dy="24" fill="#c4b5fd" font-size="10">b = -2.0</text>
+                            </g>
+                            <line x1="396" y1="120" x2="590" y2="120" stroke="#ec4899" stroke-width="5" stroke-dasharray="6,4" />
+                            <g transform="translate(590, 120)">
+                                <circle r="38" fill="#1e293b" stroke="#ec4899" stroke-width="3" />
+                                <text text-anchor="middle" dy="-8" fill="#ffffff" font-size="10" font-weight="bold">Walk Outside?</text>
+                                <text id="svg-out-val" text-anchor="middle" dy="14" fill="#f472b6" font-size="12" font-family="monospace" font-weight="bold">75%</text>
+                            </g>
+                            <rect x="200" y="65" width="62" height="22" rx="4" fill="#0f172a" stroke="#475569" />
+                            <text id="svg-w1-label" x="231" y="80" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="bold">w₁: 0.2</text>
+                            <rect x="200" y="145" width="62" height="22" rx="4" fill="#0f172a" stroke="#475569" />
+                            <text id="svg-w2-label" x="231" y="160" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="bold">w₂: 0.5</text>
+                        </svg>
+                    </div>
+
+                    <div class="text-xs text-slate-400 bg-slate-900 p-3 rounded-xl border border-slate-700/60 flex items-center justify-between">
+                        <span>Output represents probability of going for a walk.</span>
+                        <span class="text-violet-300 font-medium">Formula: f(w₁·Temp + w₂·FreeTime + b)</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 bg-slate-800 border border-slate-700/80 rounded-2xl p-6 space-y-4 flex flex-col justify-between shadow-lg">
+                    <div>
+                        <h3 id="scenario-params-title" class="text-sm font-bold text-white uppercase tracking-wider mb-3 text-violet-400">Scenario Parameters</h3>
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label id="temp-input-label" class="text-[11px] text-slate-300 block mb-1">Temperature (x₁):</label>
+                                    <input type="number" id="pg-in-1" value="22" step="1" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-violet-500 font-mono shadow-inner" oninput="runPlayground()">
+                                </div>
+                                <div>
+                                    <label id="freetime-input-label" class="text-[11px] text-slate-300 block mb-1">Free Time (x₂):</label>
+                                    <input type="number" id="pg-in-2" value="3" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-violet-500 font-mono shadow-inner" oninput="runPlayground()">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2 pt-2 border-t border-slate-700/60">
+                                <div>
+                                    <div class="flex justify-between text-[11px] font-medium text-slate-300 mb-1">
+                                        <span id="temp-weight-label">Temp Weight (w₁):</span>
+                                        <span id="pg-w1-val" class="text-sky-400 font-bold">0.2</span>
+                                    </div>
+                                    <input type="range" id="pg-w1" min="-2" max="2" step="0.1" value="0.2" class="w-full accent-sky-500 bg-slate-700 h-1.5 rounded-lg cursor-pointer" oninput="runPlayground()">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[11px] font-medium text-slate-300 mb-1">
+                                        <span id="freetime-weight-label">Free Time Weight (w₂):</span>
+                                        <span id="pg-w2-val" class="text-sky-400 font-bold">0.5</span>
+                                    </div>
+                                    <input type="range" id="pg-w2" min="-2" max="2" step="0.1" value="0.5" class="w-full accent-sky-500 bg-slate-700 h-1.5 rounded-lg cursor-pointer" oninput="runPlayground()">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[11px] font-medium text-slate-300 mb-1">
+                                        <span id="bias-param-label">Bias (b):</span>
+                                        <span id="pg-b-val" class="text-purple-400 font-bold">-2.0</span>
+                                    </div>
+                                    <input type="range" id="pg-b" min="-10" max="10" step="0.5" value="-2.0" class="w-full accent-purple-500 bg-slate-700 h-1.5 rounded-lg cursor-pointer" oninput="runPlayground()">
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900 border border-slate-700/80 rounded-xl p-3.5 space-y-2 shadow-inner">
+                                <div id="pipeline-title" class="text-[11px] uppercase tracking-wider text-violet-400 font-bold border-b border-slate-800 pb-1 flex items-center justify-between">
+                                    <span>Detailed 4-Step Neural Pipeline</span>
+                                </div>
+                                <div class="text-[11px] text-slate-300 font-mono space-y-1.5">
+                                    <div class="flex justify-between items-center bg-slate-800/50 px-2 py-1 rounded">
+                                        <span id="step1-math-label" class="text-slate-400">1. Weight Signals:</span>
+                                        <span id="calc-step1" class="text-violet-300 font-bold">w₁x₁=4.4, w₂x₂=1.5</span>
+                                    </div>
+                                    <div class="flex justify-between items-center bg-slate-800/50 px-2 py-1 rounded">
+                                        <span id="step2-math-label" class="text-slate-400">2. Weighted Sum (z):</span>
+                                        <span id="calc-step2" class="text-white font-bold">5.9</span>
+                                    </div>
+                                    <div class="flex justify-between items-center bg-slate-800/50 px-2 py-1 rounded">
+                                        <span id="step3-math-label" class="text-slate-400">3. Add Bias (z + b):</span>
+                                        <span id="calc-step3" class="text-violet-300 font-bold">0.9</span>
+                                    </div>
+                                    <div class="flex justify-between items-center bg-violet-950/60 border border-violet-700/50 px-2 py-1 rounded text-xs">
+                                        <span id="step4-math-label" class="text-violet-200">4. Sigmoid f(z):</span>
+                                        <span id="pg-out-res" class="font-mono font-bold text-pink-400 text-sm">71%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: TRAINING LAB -->
+        <div id="view-training" class="view-section hidden max-w-6xl mx-auto space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur space-y-3">
+                <span id="step5-badge-train" class="text-xs font-semibold uppercase tracking-wider text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">Step 5: Training & Gradient Descent</span>
+                <h2 id="training-title" class="text-2xl font-bold text-white">Neural Network Training Simulator</h2>
+                <p id="training-desc" class="text-slate-300 text-sm">Watch how a neural network learns! Hit 'Start Training' to watch gradient descent automatically adjust weights and minimize error over multiple epochs.</p>
+                
+                <!-- Added Conceptual Background Card -->
+                <div class="bg-slate-900/90 border border-violet-500/30 rounded-xl p-4 mt-3 space-y-2 text-xs text-slate-300">
+                    <div id="concept-box-title" class="font-bold text-violet-300 flex items-center space-x-1.5 text-sm pb-1 border-b border-slate-800">
+                        <span>🧠 Core Concepts Before You Train</span>
+                    </div>
+                    <p id="concept-desc-1"><b>Learning Rate (α):</b> Think of this as your <i>step size</i> when walking down a foggy mountain. If your step size is too big, you overshoot the valley and bounce back and forth. If it is too microscopic, it takes forever to reach the bottom. A rate around 0.15 is a healthy, balanced stride.</p>
+                    <p id="concept-desc-2"><b>Convergence:</b> This simply means <i>reaching the destination</i>. When the error (loss) stops decreasing and flattens out, the AI has successfully learned the pattern and 'converged' to the best possible solution.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-4 bg-slate-800 border border-slate-700/80 rounded-2xl p-6 space-y-6 shadow-lg flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h3 id="train-params-title" class="text-lg font-bold text-white">Training Controls</h3>
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-300 mb-2">
+                                <span id="learning-rate-label">Learning Rate (α):</span>
+                                <span id="train-lr-val" class="text-violet-400 font-bold">0.15</span>
+                            </div>
+                            <input type="range" id="train-lr-slider" min="0.01" max="0.5" step="0.01" value="0.15" class="w-full accent-violet-500 bg-slate-700 h-2 rounded-lg cursor-pointer" oninput="updateLearningRate()">
+                        </div>
+
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60 space-y-3 font-mono text-xs shadow-inner">
+                            <div class="flex justify-between items-center">
+                                <span id="epochs-label-text" class="text-slate-400">Epochs Completed:</span>
+                                <span id="train-epoch-val" class="text-white font-bold text-sm">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Model Accuracy:</span>
+                                <span id="train-accuracy-val" class="text-emerald-400 font-bold text-sm">50%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span id="loss-label-text" class="text-slate-400">Current Error (Loss):</span>
+                                <span id="train-loss-val" class="text-rose-400 font-bold text-sm">0.69</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-4">
+                        <button onclick="toggleTraining()" id="start-train-btn" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold py-3 rounded-xl text-xs transition-all shadow-lg shadow-violet-600/30 flex items-center justify-center space-x-2">
+                            <span>▶ Start Training</span>
+                        </button>
+                        <button onclick="resetTraining()" id="reset-train-btn" class="w-full bg-slate-900 hover:bg-slate-700 border border-slate-700 text-slate-300 font-semibold py-2.5 rounded-xl text-xs transition-all shadow">
+                            🔄 Reset Weights
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 bg-slate-800 border border-slate-700/80 rounded-2xl p-6 flex flex-col shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 id="train-graph-title" class="text-sm font-bold text-slate-200 uppercase tracking-wider">Decision Boundary & Loss Curve</h3>
+                        <span class="text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 font-semibold">Logistic Regression GD</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
+                        <div class="relative min-h-[300px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden flex items-center justify-center">
+                            <canvas id="trainBoundaryCanvas" class="absolute inset-0 w-full h-full block"></canvas>
+                            <span class="absolute bottom-2 left-2 bg-slate-900/80 px-2 py-1 rounded text-[10px] text-slate-400">Model Decision Plane</span>
+                        </div>
+                        <div class="relative min-h-[300px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden flex items-center justify-center">
+                            <canvas id="trainLossCanvas" class="absolute inset-0 w-full h-full block"></canvas>
+                            <span class="absolute bottom-2 left-2 bg-slate-900/80 px-2 py-1 rounded text-[10px] text-slate-400">Loss / Error Curve Over Time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: AI TUTOR -->
+        <div id="view-tutor" class="view-section hidden max-w-4xl mx-auto space-y-6">
+            <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur">
+                <span id="step6-badge" class="text-xs font-semibold uppercase tracking-wider text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">Step 6: AI Tutor Companion</span>
+                <h2 id="tutor-title" class="text-2xl font-bold text-white mt-3">Ask Your AI Neural Guide</h2>
+                <p id="tutor-desc" class="text-slate-300 mt-1 text-sm">Have questions about weights, biases, or activation functions? Ask away and get instant, beginner-friendly explanations!</p>
+            </div>
+
+            <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 space-y-4 shadow-xl">
+                <div id="tutor-chat-box" class="h-80 overflow-y-auto space-y-3 pr-2">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow">AI</div>
+                        <div class="bg-slate-900 border border-slate-700/80 rounded-2xl p-3 text-xs text-slate-200 max-w-lg leading-relaxed shadow">
+                            Hello! I am your NeuralNet AI Tutor. Select a prompt below or type any question you have about neural networks!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <button onclick="askTutor(currentLang === 'vi' ? 'Tại sao cần hàm kích hoạt?' : 'Why do we need activation functions?')" id="prompt1-btn" class="bg-slate-900 hover:bg-slate-700 text-xs text-violet-300 border border-slate-700 px-3 py-1.5 rounded-lg transition-all shadow">Why activation functions?</button>
+                    <button onclick="askTutor(currentLang === 'vi' ? 'Thuật toán giảm dốc là gì?' : 'What is gradient descent?')" id="prompt2-btn" class="bg-slate-900 hover:bg-slate-700 text-xs text-violet-300 border border-slate-700 px-3 py-1.5 rounded-lg transition-all shadow">What is gradient descent?</button>
+                    <button onclick="askTutor(currentLang === 'vi' ? 'Mạng nơ-ron học như thế nào?' : 'How does training work?')" id="prompt3-btn" class="bg-slate-900 hover:bg-slate-700 text-xs text-violet-300 border border-slate-700 px-3 py-1.5 rounded-lg transition-all shadow">How does training work?</button>
+                </div>
+
+                <div class="flex space-x-2 pt-2 border-t border-slate-700/80">
+                    <input type="text" id="tutor-input" placeholder="Ask a question about neural networks..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 shadow-inner" onkeypress="if(event.key==='Enter') sendTutorMessage()">
+                    <button onclick="sendTutorMessage()" id="tutor-send-btn" class="bg-violet-600 hover:bg-violet-700 text-white px-5 py-2.5 rounded-xl text-xs font-semibold transition-all shadow-md">Send</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function initCanvasWithDPR(canvas) {
+            const dpr = window.devicePixelRatio || 1;
+            const parentWidth = canvas.parentElement.clientWidth || 600;
+            const parentHeight = canvas.parentElement.clientHeight || 320;
+            
+            canvas.width = parentWidth * dpr;
+            canvas.height = parentHeight * dpr;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            return { ctx, width: parentWidth, height: parentHeight };
+        }
+
+        let geoMode = 'linear';
+        let geoW = 1.0;
+        let geoB = 0.0;
+        let geoR = 1.5;
+
+        const studentDataset = [
+            { x: 1.2, y: 1.0, passed: 0 },
+            { x: 1.5, y: 2.2, passed: 0 },
+            { x: 2.1, y: 1.8, passed: 1 },
+            { x: 2.5, y: 2.9, passed: 1 },
+            { x: 3.2, y: 3.0, passed: 1 },
+            { x: 3.8, y: 2.5, passed: 1 },
+            { x: 4.5, y: 4.2, passed: 0 },
+            { x: 4.8, y: 4.0, passed: 0 },
+            { x: 2.8, y: 2.4, passed: 1 },
+            { x: 1.8, y: 3.5, passed: 0 },
+            { x: 3.5, y: 1.5, passed: 0 },
+            { x: 2.3, y: 3.1, passed: 1 },
+        ];
+
+        function setBoundaryMode(mode) {
+            geoMode = mode;
+            const btnLin = document.getElementById('btn-mode-linear');
+            const btnCir = document.getElementById('btn-mode-circular');
+            const controlsLin = document.getElementById('controls-linear');
+            const controlsCir = document.getElementById('controls-circular');
+            const modeBadge = document.getElementById('geo-graph-mode-badge');
+            const legendText = document.getElementById('geo-legend-text');
+            const indicator = document.getElementById('geo-legend-indicator');
+
+            if (mode === 'linear') {
+                btnLin.className = "py-2 rounded-lg text-xs font-semibold transition-all bg-violet-600 text-white shadow";
+                btnCir.className = "py-2 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white";
+                controlsLin.classList.remove('hidden');
+                controlsCir.classList.add('hidden');
+                modeBadge.innerText = currentLang === 'vi' ? 'Chế Độ Đường Thẳng' : 'Linear Boundary Mode';
+                legendText.innerText = currentLang === 'vi' ? 'Ranh Giới Tuyến Tính' : 'Linear Decision Boundary';
+                indicator.className = "w-4 h-1.5 bg-violet-500 inline-block rounded";
+            } else {
+                btnCir.className = "py-2 rounded-lg text-xs font-semibold transition-all bg-pink-600 text-white shadow";
+                btnLin.className = "py-2 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white";
+                controlsCir.classList.remove('hidden');
+                controlsLin.classList.add('hidden');
+                modeBadge.innerText = currentLang === 'vi' ? 'Chế Độ Vòng Tròn Phi Tuyến' : 'Circular Non-Linear Mode';
+                legendText.innerText = currentLang === 'vi' ? 'Ranh Giới Vòng Tròn Phi Tuyến' : 'Circular Non-Linear Boundary';
+                indicator.className = "w-4 h-1.5 bg-pink-500 inline-block rounded";
+            }
+            updateGeometry();
+        }
+
+        function updateGeometry() {
+            if (geoMode === 'linear') {
+                geoW = parseFloat(document.getElementById('geo-w-slider').value);
+                geoB = parseFloat(document.getElementById('geo-b-slider').value);
+                document.getElementById('geo-w-val').innerText = geoW.toFixed(1);
+                document.getElementById('geo-b-val').innerText = geoB.toFixed(1);
+                document.getElementById('geo-equation-display').innerText = `y = ${geoW.toFixed(1)}x + ${geoB.toFixed(1)}`;
+            } else {
+                geoR = parseFloat(document.getElementById('geo-r-slider').value);
+                document.getElementById('geo-r-val').innerText = geoR.toFixed(1);
+                document.getElementById('geo-equation-display').innerText = `(x - 2.8)² + (y - 2.5)² ≤ ${geoR.toFixed(1)}²`;
+            }
+            drawGeometryGraph();
+        }
+
+        function snapOptimalBoundary() {
+            if (geoMode === 'linear') {
+                document.getElementById('geo-w-slider').value = '1.2';
+                document.getElementById('geo-b-slider').value = '-1.5';
+            } else {
+                document.getElementById('geo-r-slider').value = '1.3';
+            }
+            updateGeometry();
+        }
+
+        function drawGeometryGraph() {
+            const canvas = document.getElementById('geometryCanvas');
+            if (!canvas) return;
+            const { ctx, width: w, height: h } = initCanvasWithDPR(canvas);
+            ctx.clearRect(0, 0, w, h);
+
+            const padding = 45;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            function toScreenX(val) { return padding + (val / 6.0) * graphW; }
+            function toScreenY(val) { return h - padding - (val / 6.0) * graphH; }
+
+            // Draw grid lines
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 6; i++) {
+                ctx.beginPath();
+                ctx.moveTo(toScreenX(i), padding);
+                ctx.lineTo(toScreenX(i), h - padding);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(padding, toScreenY(i));
+                ctx.lineTo(w - padding, toScreenY(i));
+                ctx.stroke();
+
+                ctx.fillStyle = '#64748b';
+                ctx.font = '10px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(i, toScreenX(i), h - padding + 15);
+                ctx.textAlign = 'right';
+                ctx.fillText(i, padding - 8, toScreenY(i) + 4);
+            }
+
+            // Clip drawings inside grid boundaries so lines never overflow
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(padding, padding, graphW, graphH);
+            ctx.clip();
+
+            if (geoMode === 'linear') {
+                ctx.strokeStyle = '#8b5cf6';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(toScreenX(0), toScreenY(geoW * 0 + geoB));
+                ctx.lineTo(toScreenX(6), toScreenY(geoW * 6 + geoB));
+                ctx.stroke();
+            } else {
+                const cx = 2.8, cy = 2.5;
+                ctx.strokeStyle = '#ec4899';
+                ctx.fillStyle = 'rgba(236, 72, 153, 0.08)';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                const radiusPx = (geoR / 6.0) * graphW;
+                ctx.arc(toScreenX(cx), toScreenY(cy), radiusPx, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            let correctCount = 0;
+            studentDataset.forEach(student => {
+                let pred = 0;
+                if (geoMode === 'linear') {
+                    pred = student.y > (geoW * student.x + geoB) ? 1 : 0;
+                } else {
+                    pred = Math.hypot(student.x - 2.8, student.y - 2.5) <= geoR ? 1 : 0;
+                }
+                if (pred === student.passed) correctCount++;
+
+                const sx = toScreenX(student.x);
+                const sy = toScreenY(student.y);
+                ctx.beginPath();
+                ctx.arc(sx, sy, 7, 0, 2 * Math.PI);
+                ctx.fillStyle = student.passed === 1 ? '#10b981' : '#f43f5e';
+                ctx.fill();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = pred === student.passed ? '#ffffff' : '#f59e0b';
+                ctx.stroke();
+            });
+            ctx.restore();
+
+            const accuracy = Math.round((correctCount / studentDataset.length) * 100);
+            const badge = document.getElementById('geo-accuracy-badge');
+            if (badge) {
+                badge.innerText = `Accuracy: ${accuracy}%`;
+                badge.className = accuracy >= 80 ? "text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" : "text-xs font-bold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('geometryCanvas');
+            if (canvas) {
+                canvas.addEventListener('mousemove', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    const mouseX = e.clientX - rect.left;
+                    const mouseY = e.clientY - rect.top;
+                    const padding = 45;
+                    const graphW = canvas.clientWidth - padding * 2;
+                    const graphH = canvas.clientHeight - padding * 2;
+
+                    function toScreenX(val) { return padding + (val / 6.0) * graphW; }
+                    function toScreenY(val) { return canvas.clientHeight - padding - (val / 6.0) * graphH; }
+
+                    let found = null;
+                    studentDataset.forEach(student => {
+                        const sx = toScreenX(student.x);
+                        const sy = toScreenY(student.y);
+                        if (Math.hypot(mouseX - sx, mouseY - sy) < 16) found = { student, sx, sy };
+                    });
+
+                    const tooltip = document.getElementById('geo-tooltip');
+                    if (found && tooltip) {
+                        tooltip.style.left = `${found.sx + 15}px`;
+                        tooltip.style.top = `${found.sy - 15}px`;
+                        tooltip.classList.remove('hidden');
+                        let pred = geoMode === 'linear' ? (found.student.y > (geoW * found.student.x + geoB) ? 1 : 0) : (Math.hypot(found.student.x - 2.8, found.student.y - 2.5) <= geoR ? 1 : 0);
+                        const isCorrect = pred === found.student.passed;
+                        document.getElementById('geo-tooltip-status-badge').innerText = found.student.passed === 1 ? 'Passed 🟢' : 'Failed 🔴';
+                        document.getElementById('geo-tooltip-content').innerHTML = `
+                            <div>Study Hours: <span class="text-white font-semibold">${found.student.x}h</span></div>
+                            <div>Practice Tests: <span class="text-white font-semibold">${found.student.y}</span></div>
+                            <div class="${isCorrect ? 'text-emerald-400' : 'text-rose-400'} font-semibold pt-0.5">Prediction: ${isCorrect ? 'Correct ✅' : 'Error ❌'}</div>
+                        `;
+                    } else if (tooltip) {
+                        tooltip.classList.add('hidden');
+                    }
+                });
+                canvas.addEventListener('mouseleave', () => {
+                    const tooltip = document.getElementById('geo-tooltip');
+                    if (tooltip) tooltip.classList.add('hidden');
+                });
+            }
+        });
+
+        // --- Activation Lab ---
+        let currentActivationType = 'sigmoid';
+        function setActivation(type) {
+            currentActivationType = type;
+            document.querySelectorAll('.act-tab-btn').forEach(btn => btn.className = "act-tab-btn px-4 py-3 rounded-xl text-xs font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 flex flex-col items-center justify-center space-y-1");
+            const activeBtn = document.getElementById(`btn-act-${type}`);
+            if (activeBtn) activeBtn.className = "act-tab-btn px-4 py-3 rounded-xl text-xs font-semibold transition-all bg-violet-600 text-white shadow-md border border-violet-500 flex flex-col items-center justify-center space-y-1";
+
+            const badge = document.getElementById('act-badge');
+            const title = document.getElementById('act-title');
+            const desc = document.getElementById('act-desc');
+            const formulaText = document.getElementById('act-formula-text');
+
+            if (type === 'sigmoid') {
+                badge.innerText = 'Smooth Squasher'; title.innerText = 'Sigmoid Function'; desc.innerText = 'Squashes any input real number into a smooth range between 0 and 1.'; formulaText.innerText = 'Formula: 1 / (1 + e⁻ˣ)';
+            } else if (type === 'relu') {
+                badge.innerText = 'Positive Rectifier'; title.innerText = 'ReLU (Rectified Linear Unit)'; desc.innerText = 'Returns 0 for negative inputs and keeps positive values unchanged.'; formulaText.innerText = 'Formula: max(0, x)';
+            } else if (type === 'tanh') {
+                badge.innerText = 'Zero-Centered Benders'; title.innerText = 'Tanh Function'; desc.innerText = 'Squashes values between -1 and +1, centering data nicely around zero.'; formulaText.innerText = 'Formula: (eˣ - e⁻ˣ) / (eˣ + e⁻ˣ)';
+            } else {
+                badge.innerText = 'Leaky Rectifier'; title.innerText = 'Leaky ReLU'; desc.innerText = 'Allows a small gradient (0.01x) for negative inputs.'; formulaText.innerText = 'Formula: max(0.1x, x)';
+            }
+            updateActivationTest();
+        }
+
+        function computeActivation(x, type) {
+            if (type === 'sigmoid') return 1 / (1 + Math.exp(-x));
+            if (type === 'relu') return Math.max(0, x);
+            if (type === 'tanh') return Math.tanh(x);
+            if (type === 'leaky') return x > 0 ? x : 0.1 * x;
+            return x;
+        }
+
+        function updateActivationTest() {
+            const slider = document.getElementById('act-slider');
+            if (!slider) return;
+            const xVal = parseFloat(slider.value);
+            const outVal = computeActivation(xVal, currentActivationType);
+            document.getElementById('act-input-display').innerText = xVal.toFixed(1);
+            document.getElementById('act-output-display').innerText = outVal.toFixed(2);
+            drawActivationGraph();
+        }
+
+        function drawActivationGraph() {
+            const canvas = document.getElementById('activationCanvas');
+            if (!canvas) return;
+            const { ctx, width: w, height: h } = initCanvasWithDPR(canvas);
+            ctx.clearRect(0, 0, w, h);
+
+            const padding = 40;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            function toScreenX(x) { return padding + ((x + 5) / 10.0) * graphW; }
+            function toScreenY(y) { return h - padding - ((y + 2) / 4.0) * graphH; }
+
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padding, toScreenY(0));
+            ctx.lineTo(w - padding, toScreenY(0));
+            ctx.moveTo(toScreenX(0), padding);
+            ctx.lineTo(toScreenX(0), h - padding);
+            ctx.stroke();
+
+            ctx.strokeStyle = '#8b5cf6';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            for (let px = 0; px <= graphW; px++) {
+                const x = -5 + (px / graphW) * 10;
+                const y = computeActivation(x, currentActivationType);
+                const sx = toScreenX(x);
+                const sy = toScreenY(y);
+                if (px === 0) ctx.moveTo(sx, sy);
+                else ctx.lineTo(sx, sy);
+            }
+            ctx.stroke();
+
+            const slider = document.getElementById('act-slider');
+            if (slider) {
+                const testX = parseFloat(slider.value);
+                const testY = computeActivation(testX, currentActivationType);
+                ctx.strokeStyle = 'rgba(139, 92, 246, 0.4)';
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath();
+                ctx.moveTo(toScreenX(testX), toScreenY(0));
+                ctx.lineTo(toScreenX(testX), toScreenY(testY));
+                ctx.lineTo(toScreenX(0), toScreenY(testY));
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                ctx.beginPath();
+                ctx.arc(toScreenX(testX), toScreenY(testY), 7, 0, 2 * Math.PI);
+                ctx.fillStyle = '#ec4899';
+                ctx.fill();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#ffffff';
+                ctx.stroke();
+            }
+        }
+
+        // --- Playground Lab ---
+        function runPlayground() {
+            const in1 = parseFloat(document.getElementById('pg-in-1').value) || 0;
+            const in2 = parseFloat(document.getElementById('pg-in-2').value) || 0;
+            const w1 = parseFloat(document.getElementById('pg-w1').value);
+            const w2 = parseFloat(document.getElementById('pg-w2').value);
+            const b = parseFloat(document.getElementById('pg-b').value);
+
+            document.getElementById('pg-w1-val').innerText = w1.toFixed(1);
+            document.getElementById('pg-w2-val').innerText = w2.toFixed(1);
+            document.getElementById('pg-b-val').innerText = b.toFixed(1);
+
+            const p1 = w1 * in1;
+            const p2 = w2 * in2;
+            const z = p1 + p2 + b;
+            const out = 1 / (1 + Math.exp(-z));
+            const outPercent = Math.round(out * 100);
+
+            document.getElementById('calc-step1').innerText = `w₁x₁=${p1.toFixed(1)}, w₂x₂=${p2.toFixed(1)}`;
+            document.getElementById('calc-step2').innerText = `${(p1 + p2).toFixed(1)}`;
+            document.getElementById('calc-step3').innerText = `${z.toFixed(1)}`;
+            document.getElementById('pg-out-res').innerText = `${outPercent}%`;
+
+            document.getElementById('svg-in1-val').innerText = `${in1}°C`;
+            document.getElementById('svg-in2-val').innerText = `${in2} hrs`;
+            document.getElementById('svg-w1-label').innerText = `w₁: ${w1.toFixed(1)}`;
+            document.getElementById('svg-w2-label').innerText = `w₂: ${w2.toFixed(1)}`;
+            document.getElementById('svg-sum-val').innerText = `z = ${z.toFixed(1)}`;
+            document.getElementById('svg-bias-val').innerText = `b = ${b.toFixed(1)}`;
+            document.getElementById('svg-out-val').innerText = `${outPercent}%`;
+        }
+
+        // --- Training & Gradient Descent Lab ---
+        let isTraining = false;
+        let trainEpochs = 0;
+        let trainLR = 0.15;
+        let trainW1 = 1.0;
+        let trainW2 = -1.0;
+        let trainB = -2.5;
+        let lossHistory = [];
+        let trainingTimer = null;
+        let trainAccuracy = 50;
+
+        function updateLearningRate() {
+            trainLR = parseFloat(document.getElementById('train-lr-slider').value);
+            document.getElementById('train-lr-val').innerText = trainLR.toFixed(2);
+        }
+
+        function resetTraining() {
+            isTraining = false;
+            if (trainingTimer) clearInterval(trainingTimer);
+            trainEpochs = 0;
+            trainW1 = 1.0;
+            trainW2 = -1.0;
+            trainB = -2.5;
+            lossHistory = [];
+            trainAccuracy = 50;
+            const startBtn = document.getElementById('start-train-btn');
+            if (startBtn) startBtn.innerText = currentLang === 'vi' ? '▶ Bắt Đầu Huấn Luyện' : '▶ Start Training';
+            updateTrainingUI();
+            drawTrainingGraph();
+        }
+
+        function toggleTraining() {
+            isTraining = !isTraining;
+            const startBtn = document.getElementById('start-train-btn');
+            if (isTraining) {
+                if (trainAccuracy === 100) { resetTraining(); isTraining = true; }
+                if (startBtn) startBtn.innerText = currentLang === 'vi' ? '⏸ Tạm Dừng' : '⏸ Pause';
+                trainingTimer = setInterval(trainStep, 40);
+            } else {
+                if (startBtn) startBtn.innerText = currentLang === 'vi' ? '▶ Tiếp Tục' : '▶ Resume';
+                clearInterval(trainingTimer);
+            }
+        }
+
+        function trainStep() {
+            let totalLoss = 0;
+            let dw1 = 0, dw2 = 0, db = 0;
+            let correctCount = 0;
+            const m = studentDataset.length;
+
+            studentDataset.forEach(d => {
+                const x = d.x;
+                const y = d.y;
+                const z = trainW1 * x + trainW2 * y + trainB;
+                const pred = 1 / (1 + Math.exp(-Math.max(-20, Math.min(20, z))));
+                const target = d.passed;
+
+                const eps = 1e-15;
+                totalLoss += - (target * Math.log(pred + eps) + (1 - target) * Math.log(1 - pred + eps));
+                if ((pred >= 0.5 ? 1 : 0) === target) correctCount++;
+
+                const error = pred - target;
+                dw1 += error * x;
+                dw2 += error * y;
+                db += error;
+            });
+
+            trainW1 -= trainLR * (dw1 / m);
+            trainW2 -= trainLR * (dw2 / m);
+            trainB -= trainLR * (db / m);
+
+            trainEpochs++;
+            trainAccuracy = Math.round((correctCount / m) * 100);
+            lossHistory.push(totalLoss / m);
+            if (lossHistory.length > 60) lossHistory.shift();
+
+            updateTrainingUI();
+            drawTrainingGraph();
+
+            if (trainAccuracy === 100 || trainEpochs >= 300) {
+                isTraining = false;
+                clearInterval(trainingTimer);
+                const startBtn = document.getElementById('start-train-btn');
+                if (startBtn) startBtn.innerText = currentLang === 'vi' ? '🎉 Hoàn Thành Huấn Luyện (100%)' : '🎉 Training Converged (100%)';
+            }
+        }
+
+        function updateTrainingUI() {
+            document.getElementById('train-epoch-val').innerText = trainEpochs;
+            document.getElementById('train-accuracy-val').innerText = `${trainAccuracy}%`;
+            const currentLoss = lossHistory.length > 0 ? lossHistory[lossHistory.length - 1] : 0.69;
+            document.getElementById('train-loss-val').innerText = currentLoss.toFixed(4);
+        }
+
+        function drawTrainingGraph() {
+            const c1 = document.getElementById('trainBoundaryCanvas');
+            if (c1) {
+                const { ctx: ctx1, width: w1, height: h1 } = initCanvasWithDPR(c1);
+                ctx1.clearRect(0, 0, w1, h1);
+                const pad = 35;
+                const gw = w1 - pad * 2;
+                const gh = h1 - pad * 2;
+
+                function sx(v) { return pad + (v / 6.0) * gw; }
+                function sy(v) { return h1 - pad - (v / 6.0) * gh; }
+
+                // Grid background
+                ctx1.strokeStyle = '#1e293b';
+                ctx1.lineWidth = 1;
+                for (let i = 0; i <= 6; i++) {
+                    ctx1.beginPath(); ctx1.moveTo(sx(i), pad); ctx1.lineTo(sx(i), h1 - pad); ctx1.stroke();
+                    ctx1.beginPath(); ctx1.moveTo(pad, sy(i)); ctx1.lineTo(w1 - pad, sy(i)); ctx1.stroke();
+                }
+
+                // Clip line to grid
+                ctx1.save();
+                ctx1.beginPath();
+                ctx1.rect(pad, pad, gw, gh);
+                ctx1.clip();
+
+                if (Math.abs(trainW2) > 0.001) {
+                    ctx1.strokeStyle = '#8b5cf6';
+                    ctx1.lineWidth = 3;
+                    ctx1.beginPath();
+                    const yStart = (-trainW1 * 0 - trainB) / trainW2;
+                    const yEnd = (-trainW1 * 6 - trainB) / trainW2;
+                    ctx1.moveTo(sx(0), sy(yStart));
+                    ctx1.lineTo(sx(6), sy(yEnd));
+                    ctx1.stroke();
+                }
+
+                studentDataset.forEach(d => {
+                    const z = trainW1 * d.x + trainW2 * d.y + trainB;
+                    const pred = (1 / (1 + Math.exp(-z))) >= 0.5 ? 1 : 0;
+                    ctx1.beginPath();
+                    ctx1.arc(sx(d.x), sy(d.y), 6, 0, 2 * Math.PI);
+                    ctx1.fillStyle = d.passed === 1 ? '#10b981' : '#f43f5e';
+                    ctx1.fill();
+                    ctx1.lineWidth = 2;
+                    ctx1.strokeStyle = pred === d.passed ? '#ffffff' : '#f59e0b';
+                    ctx1.stroke();
+                });
+                ctx1.restore();
+            }
+
+            const c2 = document.getElementById('trainLossCanvas');
+            if (c2) {
+                const { ctx: ctx2, width: w2, height: h2 } = initCanvasWithDPR(c2);
+                ctx2.clearRect(0, 0, w2, h2);
+                const pad = 35;
+                const gw = w2 - pad * 2;
+                const gh = h2 - pad * 2;
+
+                ctx2.strokeStyle = '#475569';
+                ctx2.lineWidth = 1;
+                ctx2.beginPath();
+                ctx2.moveTo(pad, h2 - pad); ctx2.lineTo(w2 - pad, h2 - pad);
+                ctx2.moveTo(pad, pad); ctx2.lineTo(pad, h2 - pad);
+                ctx2.stroke();
+
+                if (lossHistory.length > 0) {
+                    ctx2.strokeStyle = '#f43f5e';
+                    ctx2.lineWidth = 2.5;
+                    ctx2.beginPath();
+                    lossHistory.forEach((loss, i) => {
+                        const x = pad + (i / Math.max(1, lossHistory.length - 1)) * gw;
+                        const y = h2 - pad - Math.min(1.0, loss / 1.0) * gh;
+                        if (i === 0) ctx2.moveTo(x, y);
+                        else ctx2.lineTo(x, y);
+                    });
+                    ctx2.stroke();
+                }
+            }
+        }
+
+        // --- AI Tutor ---
+        function sendTutorMessage() {
+            const input = document.getElementById('tutor-input');
+            const q = input.value.trim();
+            if (!q) return;
+            appendChatMessage('user', q);
+            input.value = '';
+
+            setTimeout(() => {
+                let reply = currentLang === 'vi' ? 
+                    "Đó là một câu hỏi tuyệt vời! Trong mạng nơ-ron, dữ liệu được truyền qua các kết nối nhân với trọng số, giúp mô hình học cách nhận diện các mẫu phức tạp." :
+                    "That's a fantastic question! In neural networks, every connection passes data multiplied by a weight. When we combine many weights and activation functions together, the network can learn to recognize patterns.";
+                
+                const lower = q.toLowerCase();
+                if (lower.includes('activation') || lower.includes('kích hoạt')) {
+                    reply = currentLang === 'vi' ? "Hàm kích hoạt thêm tính 'phi tuyến' cho mạng. Không có chúng, mạng nơ-ron dù sâu đến đâu cũng chỉ hoạt động như một đường thẳng đơn giản!" : "Activation functions add 'non-linearity' to the network. Without them, no matter how many layers a neural network has, it would just act like a single straight line equation!";
+                } else if (lower.includes('gradient') || lower.includes('giảm dốc') || lower.includes('huấn luyện') || lower.includes('train')) {
+                    reply = currentLang === 'vi' ? "Thuật toán giảm dốc (Gradient Descent) tính toán mức độ sai sót rồi tự động điều chỉnh từng trọng số và độ lệch để giảm thiểu lỗi!" : "Gradient descent calculates the error and automatically nudges the weights and bias in the direction that reduces mistakes, epoch by epoch!";
+                }
+                appendChatMessage('ai', reply);
+            }, 600);
+        }
+
+        function askTutor(question) {
+            document.getElementById('tutor-input').value = question;
+            sendTutorMessage();
+        }
+
+        function appendChatMessage(sender, text) {
+            const box = document.getElementById('tutor-chat-box');
+            const isAi = sender === 'ai';
+            const div = document.createElement('div');
+            div.className = `flex items-start space-x-3 ${isAi ? '' : 'justify-end'}`;
+            div.innerHTML = isAi ? 
+                `<div class="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow">AI</div><div class="bg-slate-900 border border-slate-700/80 rounded-xl p-3 text-xs text-slate-200 max-w-lg leading-relaxed shadow">${text}</div>` :
+                `<div class="bg-violet-600/80 border border-violet-500/50 rounded-xl p-3 text-xs text-white max-w-lg leading-relaxed shadow">${text}</div><div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow">You</div>`;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        window.onload = function() {
+            switchTab('glossary');
+            runPlayground();
+            updateActivationTest();
+            updateTrainingUI();
+            drawTrainingGraph();
+        };
+
+        window.onresize = function() {
+            drawGeometryGraph();
+            drawActivationGraph();
+            drawTrainingGraph();
+        };
+    </script>
+</body>
+</html>
